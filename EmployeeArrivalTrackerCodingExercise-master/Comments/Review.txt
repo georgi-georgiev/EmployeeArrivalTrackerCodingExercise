@@ -1,0 +1,23 @@
+*Consider using database instead of files if possible when the data is too big. Faster reads/writes. Data integrity. Filtering. Caching.
+*Possible splitting of the file into two: "Managers" and "Employees"
+*Random class is pseudo random for more secure randomization use RNGCryptoServiceProvider
+
+#Code quality
+-Use enums for roles and teams instead of magic strings. Prevents typo mistakes.
+-Use constant for the managers count instead of hard-coded numbers
+-Use the already calculated teams/roles array length instead of hard-coded numbers
+-Use more meaningful names for the loops counter like "lineNumber","employeeNumber"
+-Use JSON.NET serialization to convert c# object to json string representation instead of long string annotations.
+-Use the streams with "using" for auto disposing
+-Extract JsonEmployee in a new file
+-More generic class. No need to put concrete use case like "Json" as part of the name of the class and use serialization attribute
+-Prevent the fields of class "Employee" to be set outside from the class. Encapsulation
+-Pass the file names, format etc. as method arguments for future use cases
+-Make several class for reading/writing and generation. In that case the code can be easiliy unit tested.
+
+#Performance
+-There is no need to split each line of the file by tab 3 times, only one is enough and reuse the newly created object.
+-There is no need for the second iteration over employees. Put the serialization as part of the first and remove the employees list.
+
+#Memory
+-Reading the file line by line with StreamReader would cost less memory consumption during the execution of the method and use StreamWriter line by line for the json file

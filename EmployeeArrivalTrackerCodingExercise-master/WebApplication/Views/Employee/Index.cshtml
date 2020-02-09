@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@model List<WebApplication.ViewModels.EmployeeViewModel>
+<div class="row">
+    <h2>Employee</h2>
+    <p>
+        If data is not loaded yet, please wait.
+    </p>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        <label>
+            Find by number:
+        </label>@Html.TextBox("FilterString", null, new { @class = "form-control" })
+        <br />
+        <div>
+            <input type="submit" class="btn btn-primary" value="Filter" />
+        </div>
+    }
+</div>
+<hr />
+<div class="row">
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">@Html.ActionLink("Number", "Index", "Employee", new { sortOrder = ViewBag.NumberSortParam }, null)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <th scope="row">@employee.i</th>
+                        <td>@employee.value.EmployeeNumber</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

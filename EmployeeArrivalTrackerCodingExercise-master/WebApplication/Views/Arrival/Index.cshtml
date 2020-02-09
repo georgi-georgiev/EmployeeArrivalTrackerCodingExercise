@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Arrival";
+}
+@model List<WebApplication.ViewModels.ArrivalViewModel>
+<div class="row">
+    <h2>Arrival</h2>
+    <p>
+        If data is not loaded yet, please wait.
+    </p>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        <label>Find by number:</label>
+        <div>
+            @Html.TextBox("FilterNumberString", null, new { @class = "form-control" })
+        </div>
+        <label>Find by date:</label>
+        <div>
+            @Html.TextBox("FilterDateString", null, new { @class = "datepicker form-control" })
+        </div>
+        <br />
+        <div>
+            <input type="submit" class="form-control btn btn-primary" value="Filter" />
+        </div>
+    }
+</div>
+<hr />
+<div class="row">
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">@Html.ActionLink("EmployeeNumber", "Index", "Arrival", new { sortOrder = ViewBag.EmployeeNumberSortParam }, null)</th>
+                    <th scope="col">@Html.ActionLink("Date", "Index", "Arrival", new { sortOrder = ViewBag.DateSortParam }, null)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var arrival in Model.Select((value, i) => new { i, value }))
+                {
+                    <tr>
+                        <th scope="row">@arrival.i</th>
+                        <td>@arrival.value.EmployeeNumber</td>
+                        <td>@arrival.value.Date</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+Instead of callbackURI, the API can accept a unique identifier of client.
+Creates a message queue for the client and return a reference to this specific queue (URL, identifier of the message queue or something similar).
+The client does not need to wait for the whole operation to complete and can start listening to the queue.
+Short-term calls are more reliable, less chance for timeouts and network issues.
+Then the service should create a background job which publish data to the message queue with marker for the succesfully processed request.
+The job must be retriable in case of failures connecting to the queue and starts again from the last unsuccessful request(prevents duplications).
+In this way the API is responsible for delivering the data only to the message queue.
+The service and client are entirely decoupled (no direct dependency).
+If the client goes offline by some reason the queue will still be populated.
+When the client is online again can start reading from the queue.
